@@ -1,0 +1,27 @@
+@import 'variables';
+
+.sorting-container {
+    display: flex;
+
+    p {
+        margin: 0 20px 0 0;
+        padding: 0;
+        color: $outer-background;
+        text-transform: uppercase;
+    }
+
+    select {
+        border:none;
+        background-color: transparent;
+        color: $text-color;
+
+        &:focus-visible {
+            border: none;
+            outline: none;
+        }
+
+        option {
+            background-color: $outer-background;
+        }
+    }
+}

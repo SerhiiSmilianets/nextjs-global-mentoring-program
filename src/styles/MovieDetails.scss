@@ -1,0 +1,71 @@
+@import 'variables';
+
+.movie-details {
+    &__container {
+        padding: 30px;
+        flex-wrap: nowrap;
+        display: flex;
+        flex-direction: row;
+        color: $text-color;
+        background-color: $content-background;
+        position: relative;
+    }
+
+    &__poster {
+        margin-right: 30px;
+    }
+
+    &__info-header{
+        display: flex;
+        flex-direction: row;
+    }
+    &__title {
+        text-transform: uppercase;
+        font-size: 40px;
+        font-weight: normal;
+        padding: 0;
+        margin: 0 30px 0 0;
+    }
+
+    &__rating {
+        display: block;
+        text-align: center;
+        border-radius: 50%;
+        border: 1px solid $text-color;
+        font-size: 20px;
+        padding: 20px;
+        height: 30px;
+        width: 30px;;
+    }
+
+    &__genres {
+        font-size: 14px;
+    }
+
+    &__info-middle {
+        color: $button-color;
+        font-size: 24px;
+        span {
+            &:first-child {
+                margin-right: 30px;
+            }
+        }
+    }
+
+    &__overview {
+        font-size: 20px;
+    }
+}
+
+.reset-header-btn{
+    position:absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    color: $button-color;
+    background-color: transparent;
+    border: 0;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}

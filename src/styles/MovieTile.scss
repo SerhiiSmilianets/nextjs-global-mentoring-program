@@ -1,0 +1,117 @@
+@import 'variables';
+
+.movie-tile {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: $text-color;
+    cursor: pointer;
+    text-decoration: none;
+
+    &__container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-basis: 30%;
+        margin-bottom: 30px;
+
+        &:hover {
+            .movie-tile__control-btn {
+                display: block;
+            }
+        }
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    &__title {
+        padding: 0;
+        margin: 0;
+    }
+
+    &__release {
+        border-radius: 10px;
+        border: 1px solid $text-color;
+        padding: 5px 10px;
+    }
+
+    &__genres {
+        margin: 0;
+    }
+
+    &__control-btn {
+        position: absolute;
+        z-index: 800;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: 1px solid $text-color;
+        border-radius: 50%;
+        color: $text-color;
+        padding: 4px 9px 2px 9px;
+        cursor: pointer;
+        display: none;
+
+        &:hover {
+            .movie-tile__container {
+                pointer-events: none;
+            }
+        }
+    }
+
+    &:hover {
+        .movie-tile__control-btn {
+            display: block;
+        }
+    }
+
+    &__context-container {
+        position: absolute;
+        z-index: 900;
+        top: 10px;
+        right: 10px;
+        color: $text-color;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        background-color: $content-background;
+        cursor: auto;
+        &.hidden{
+            display: none;
+        }
+
+        .close-context-btn {
+            color: $text-color;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    }
+
+    &__context-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100px;
+        .dialog-open-btn{
+            display: block;
+            color: $text-color;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            align-items: flex-start;
+            text-align: left;
+            padding: 5px 10px;
+            text-decoration: none;
+
+            &:hover {
+                background-color: $button-color;
+            }
+        }
+    }
+}

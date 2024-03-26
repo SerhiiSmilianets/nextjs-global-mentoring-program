@@ -1,0 +1,42 @@
+@import 'variables';
+
+.search-form__container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+
+    h2 {
+        text-transform: uppercase;
+        color: $text-color;
+        font-weight: 200;
+    }
+
+    #search-form{
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+
+        input {
+            width: 80%;
+            background-color: rgba($color: #323232, $alpha: 0.9);
+            border: none;
+            margin-right: 10px;
+            padding: 10px;
+            border-radius: 3px;
+            color: $text-color;
+
+        }
+        
+        button {
+            background-color: $button-color;
+            color: $text-color;
+            width: 20%;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+    }
+}

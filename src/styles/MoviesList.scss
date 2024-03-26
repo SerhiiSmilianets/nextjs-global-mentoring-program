@@ -1,0 +1,17 @@
+@import 'variables';
+
+.movies-list {
+    color: $text-color;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: #232323;
+}
+
+.movies-grid {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
