@@ -3,7 +3,7 @@
 import { useRef, FormEvent } from "react";
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import '../styles/SearchBar.scss';
+import '@/styles/SearchBar.scss';
 
 const SearchBar = () => {
     const ref = useRef<HTMLInputElement>(null);
@@ -39,7 +39,6 @@ const SearchBar = () => {
                     </form>
                 </div>
             </div>
-            {/* <Outlet/> */}
         </div>
     );
 }

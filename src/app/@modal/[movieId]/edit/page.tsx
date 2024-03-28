@@ -1,48 +1,78 @@
 "use client"
 
-import { FC } from 'react';
-import { useForm } from "react-hook-form"
-import { useSearchParams, useRouter } from 'next/navigation';
+import React, { FC, useEffect, useState } from 'react';
+import { useForm } from "react-hook-form";
+import { useRouter } from 'next/router';
+import {MOVIE_API_URL, GENRE_LIST} from '@/constants';
+import {getFirstSelectedGenre, getDateFormatted} from '@/utils/movieUtils';
+import '@/styles/MovieForm.scss';
+import { MovieData } from '@/types';
+import Dialog from '@/components/Dialog';
 
-import {GENRE_LIST} from '../../constants'
-import '../../styles/MovieForm.scss';
-
-interface FormData {
-    title: string;
-    release_date: string;
-    poster_path: string;
-    vote_average: number;
-    genres: string[];
-    runtime: number;
-    overview: string;
+const loadMovieDetails = async (movieId: string): Promise<MovieData> => {
+  const responseData = await fetch([MOVIE_API_URL, movieId].join('/'));
+  const resData = await responseData.json();
+  return resData;
 }
 
-const AddMovieForm: FC = () => {
-    const router = useRouter()
-    const searchParams = useSearchParams();
-    const { register, handleSubmit, reset, formState: {errors} } = useForm<FormData>();
-    const handleSubmitForm = async(data: FormData) => {
-        try {
-            const response = await fetch("http://localhost:4000/movies", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            })
-            const result = await response.json();
-            if (result.id) {
-                router.push(`/${result.id + '?' + searchParams.toString() }`)
-                // navigate(`/${result.id + location.search}`)
-            }
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    }
+interface EditMovieProps {
+  params: {
+    movieId: string;
+  };
+}
 
-    return (
+const EditMovie: FC<EditMovieProps> = ({params}) => {
+  const router = useRouter();
+  const {movieId} = params;
+  const [movieData, setMovieData] = useState<MovieData | null>(null);
+
+  useEffect(() => {
+    loadMovieDetails(movieId).then(setMovieData);
+  }, [movieId]);
+
+  const defaultValues = movieData ? {
+    title: movieData.title,
+    release_date: getDateFormatted(movieData.release_date),
+    poster_path: movieData.poster_path,
+    vote_average: movieData.vote_average,
+    genres: getFirstSelectedGenre(movieData.genres),
+    runtime: movieData.runtime,
+    overview: movieData.overview,
+    id: movieData.id
+  } : {};
+
+  const { register, handleSubmit, reset, formState: {errors} } = useForm({
+    defaultValues
+  });
+
+  const handleSubmitForm = async(data: { title: string; release_date: string; poster_path: string; vote_average: number; genres: string; runtime: number; overview: string; id: string; }) => {
+    try {
+        const responseData = await fetch("http://localhost:4000/movies", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+
+        const result = await responseData.json();
+        if (result.id) {
+          return router.push(`/${movieId}`)
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+  }
+
+  if (!movieData) {
+    return null;
+  }
+
+  return (
+    <Dialog title={"Edit Movie"} >
         <div className='movie-form__container'>
             <form onSubmit={handleSubmit(handleSubmitForm)}>
+                {/* Form fields go here */}
                 <div className='movie-form__row'>
                     <div className='movie-form__field-column left'>
                         <label htmlFor="movie_title">Title</label>
@@ -142,12 +172,15 @@ const AddMovieForm: FC = () => {
                 </div>
 
                 <div className='movie-form__row form-buttons__container'>
-                    <button onClick={() => reset()} className='btn reset' type='reset'>Reset</button>
+                    <button onClick={() => reset(defaultValues)} className='btn reset'>Reset</button>
                     <button className='btn submit' type='submit'>Submit</button>
                 </div>
+
+                <input type='hidden' {...register("id", { required: "This is required"})} />
             </form>
         </div>
-    )
+    </Dialog>
+  );
 }
 
-export default AddMovieForm;
+export default EditMovie;

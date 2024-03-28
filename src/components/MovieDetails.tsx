@@ -1,15 +1,23 @@
+'use client'
+
 import { FC } from 'react';
-import { useLoaderData, Link, useLocation, Outlet } from "react-router-dom";
-import { getRuntimeFormatted, getReleaseYear, getMovieItem, addImageFallback } from '../utils/movieUtils';
-import {MOVIE_API_URL} from '../constants'
-import { MovieData } from '../types';
+// import { useLoaderData,  useLocation } from "react-router-dom";
+import { getRuntimeFormatted, getReleaseYear, getMovieItem, addImageFallback } from '@/utils/movieUtils';
+import {MOVIE_API_URL} from '@/constants'
+import { MovieData } from '@/types';
+import Link from 'next/link';
+// import Image from 'next/image'
+// import { useSearchParams } from "next/navigation";
 
-import '../styles/MovieDetails.scss';
+import '@/styles/MovieDetails.scss';
 
-const MovieDetails: FC = () => {
-    const data = useLoaderData() as MovieData;
-    const {poster_path, title, vote_average, genres, release_date, runtime, overview} = data;
-    const location = useLocation();
+const loadMovieDetails = async (movieId) => {
+    return await getMovieItem([MOVIE_API_URL, movieId].join('/'))
+}
+
+const MovieDetails: FC = async ({movieData}) => {
+    const {poster_path, title, vote_average, genres, release_date, runtime, overview} = movieData;
+    // const searchParams = useSearchParams();
 
     return (
         <div className="movie-details__container">
@@ -33,8 +41,7 @@ const MovieDetails: FC = () => {
 
                 <p className='movie-details__overview'>{overview}</p>
             </div>
-            <Link to={`/${location.search}`} className="reset-header-btn"> &#x1F50E;&#xFE0E;</Link>
-            <Outlet/>
+            {/* <Link href={`/?${searchParams.toString()}`} className="reset-header-btn"> &#x1F50E;&#xFE0E;</Link> */}
         </div>
     )
 }

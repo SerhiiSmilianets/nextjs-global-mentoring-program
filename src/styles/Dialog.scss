@@ -50,5 +50,14 @@
             cursor: pointer;
             text-decoration: none;
         }
+
+        .dialog__close {
+            color: $text-color;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+        }
     }
 }
