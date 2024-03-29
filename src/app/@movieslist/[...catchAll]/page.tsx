@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import MovieTile from "@/components/MovieTile";
-import { getMoviesList } from '@/utils/movieUtils';
 import {MOVIE_API_URL} from '@/constants'
 import { MovieData } from '@/types';
+
+//styles import
+import '@/styles/MovieListPage.scss';
 
 const loadMoviesList = async (searchParams: URLSearchParams): Promise<MovieData[]> => {
     const params = new URLSearchParams(searchParams);
@@ -11,7 +13,12 @@ const loadMoviesList = async (searchParams: URLSearchParams): Promise<MovieData[
     if (!sortBy) {
         additionalQueryParameters = [additionalQueryParameters, "sortBy=release_date"].join('&')
     }
-    return await getMoviesList([MOVIE_API_URL, '?', params.toString(), additionalQueryParameters].join(''));
+
+    const responseData = await fetch([MOVIE_API_URL, '?', params.toString(), additionalQueryParameters].join(''), {
+        next: { revalidate: 10 },
+      });
+    const resData = await responseData.json();
+    return resData.data;
 }
 
 interface MoviesListProps {

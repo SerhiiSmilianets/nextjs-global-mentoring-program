@@ -1,18 +1,21 @@
+"use client"
+
 import { FC } from 'react';
 import { useForm } from "react-hook-form"
-import { useNavigate, Form } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
-import {GENRE_LIST} from '../../constants'
-import {getFirstSelectedGenre, getDateFormatted} from '../../utils/movieUtils'
-import '../../styles/MovieForm.scss';
-import { MovieData } from '../../types';
+import {GENRE_LIST} from '@/constants'
+import {getFirstSelectedGenre, getDateFormatted} from '@/utils/movieUtils'
+import '@/styles/MovieForm.scss';
+import { MovieData } from '@/types';
 
 interface MovieDataProps {
     movieData: MovieData;
 }
 
 const EditMovieForm: FC<MovieDataProps> = ({movieData}) => {
-    const defaultValues = {
+    const router = useRouter();
+    const defaultValues = movieData ? {
         title: movieData.title,
         release_date: getDateFormatted(movieData.release_date),
         poster_path: movieData.poster_path,
@@ -21,9 +24,9 @@ const EditMovieForm: FC<MovieDataProps> = ({movieData}) => {
         runtime: movieData.runtime,
         overview: movieData.overview,
         id: movieData.id
-    }
-    const navigate = useNavigate();
-    const { register, handleSubmit, reset, formState: {errors} } = useForm<MovieData>({
+    } : {};
+
+    const { register, handleSubmit, reset, formState: {errors} } = useForm({
         defaultValues
     });
 
@@ -38,7 +41,8 @@ const EditMovieForm: FC<MovieDataProps> = ({movieData}) => {
             })
             const result = await response.json();
             if (result.id) {
-                navigate('/')
+                // return router.back()
+                return router.push('/')
             }
         } catch (error) {
             console.error("Error:", error);
@@ -47,7 +51,7 @@ const EditMovieForm: FC<MovieDataProps> = ({movieData}) => {
 
     return (
         <div className='movie-form__container'>
-            <Form onSubmit={handleSubmit(handleSubmitForm)}>
+            <form onSubmit={handleSubmit(handleSubmitForm)}>
                 <div className='movie-form__row'>
                     <div className='movie-form__field-column left'>
                         <label htmlFor="movie_title">Title</label>
@@ -152,7 +156,7 @@ const EditMovieForm: FC<MovieDataProps> = ({movieData}) => {
                 </div>
 
                 <input type='hidden' {...register("id", { required: "This is required"})} />
-            </Form>
+            </form>
         </div>
     )
 }

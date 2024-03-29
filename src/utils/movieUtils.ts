@@ -10,8 +10,8 @@ const getRuntimeFormatted = (runtime: number): string => {
 const getDateFormatted = (release_date: string): string => {
     const releaseDate = new Date (release_date);
     const yyyy = releaseDate.getFullYear();
-    let mm = releaseDate.getMonth() + 1; // Months start at 0!
-    let dd = releaseDate.getDate();
+    let mm: string | number = releaseDate.getMonth() + 1; // Months start at 0!
+    let dd: string | number = releaseDate.getDate();
 
     if (dd < 10) dd = '0' + dd;
     if (mm < 10) mm = '0' + mm;
@@ -24,7 +24,6 @@ const getReleaseYear = (release_date: string): number => {
 }
 
 const getMovieItem = async (url: string): Promise<any> => {
-    console.log(url)
     const responseData = await fetch(url);
     const resData = await responseData.json();
     return resData

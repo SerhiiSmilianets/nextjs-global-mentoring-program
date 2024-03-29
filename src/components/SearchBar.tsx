@@ -17,7 +17,7 @@ const SearchBar = () => {
         const params = new URLSearchParams(searchParams)
 
         if (!ref.current?.value) {
-            params.delete("filter");
+            params.delete("search");
         } else {
             params.set('search', ref.current.value)
         }

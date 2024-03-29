@@ -6,7 +6,9 @@ import Link from 'next/link';
 import '@/styles/MovieDetails.scss';
 
 const loadMovieDetails = async (movieId: string): Promise<MovieData> => {
-  const responseData = await fetch([MOVIE_API_URL, movieId].join('/'));
+  const responseData = await fetch([MOVIE_API_URL, movieId].join('/'),  {
+    next: { revalidate: 10 },
+  });
   const resData = await responseData.json();
   return resData;
 }

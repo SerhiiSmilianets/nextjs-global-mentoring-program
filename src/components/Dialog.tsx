@@ -2,7 +2,7 @@
 
 import React, { MouseEvent, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import '../styles/Dialog.scss';
+import '@/styles/Dialog.scss';
 
 export interface DialogProps {
     title: string;

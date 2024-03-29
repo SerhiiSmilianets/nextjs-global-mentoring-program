@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useForm } from "react-hook-form";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { GENRE_LIST } from '@/constants';
 import '@/styles/MovieForm.scss';
 import Dialog from '@/components/Dialog';
@@ -38,7 +38,10 @@ const NewMovie: React.FC<NewMovieProps> = ({ searchParams }) => {
 
       const result = await response.json();
       if (result.id) {
-        router.push(`/${result.id + '?' + queryParams.toString()}`);
+        // return router.push(`/${result.id + '?' + queryParams.toString()}`);
+
+        router.back();
+
       }
     } catch (error) {
       console.error("Error:", error);

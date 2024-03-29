@@ -1,7 +1,8 @@
 "use client"
 
 import React, { FC } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter, permanentRedirect  } from 'next/navigation';
+// import { revalidatePath } from 'next/cache'
 import { useForm } from "react-hook-form";
 import '@/styles/MovieForm.scss';
 import Dialog from '@/components/Dialog';
@@ -26,7 +27,10 @@ const DeleteMovie: FC<DeleteMovieProps> = ({params}) => {
             }
         })
         if (response.ok) {
+            // return router.back()
             return router.push('/')
+            // return permanentRedirect('/')
+            // revalidatePath('/', 'layout')
         }
   
     } catch (error) {
