@@ -41,8 +41,7 @@ const EditMovieForm: FC<MovieDataProps> = ({movieData}) => {
             })
             const result = await response.json();
             if (result.id) {
-                // return router.back()
-                return router.push('/')
+                return router.back()
             }
         } catch (error) {
             console.error("Error:", error);

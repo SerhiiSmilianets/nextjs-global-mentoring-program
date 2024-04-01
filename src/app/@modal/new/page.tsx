@@ -38,10 +38,7 @@ const NewMovie: React.FC<NewMovieProps> = ({ searchParams }) => {
 
       const result = await response.json();
       if (result.id) {
-        // return router.push(`/${result.id + '?' + queryParams.toString()}`);
-
         router.back();
-
       }
     } catch (error) {
       console.error("Error:", error);

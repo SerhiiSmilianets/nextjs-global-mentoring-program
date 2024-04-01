@@ -27,10 +27,7 @@ const DeleteMovie: FC<DeleteMovieProps> = ({params}) => {
             }
         })
         if (response.ok) {
-            // return router.back()
-            return router.push('/')
-            // return permanentRedirect('/')
-            // revalidatePath('/', 'layout')
+            return router.back()
         }
   
     } catch (error) {

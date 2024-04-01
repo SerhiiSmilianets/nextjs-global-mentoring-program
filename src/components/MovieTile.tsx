@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect, FC } from "react";
 // import { Link, useLocation } from "react-router-dom";
 import Link from 'next/link';
 import Image from 'next/image'
-import { getReleaseYear, addImageFallback } from '@/utils/movieUtils';
+import { getReleaseYear} from '@/utils/movieUtils';
 import { MovieData } from '../types';
 import '@/styles/MovieTile.scss';
 import { useSearchParams } from "next/navigation";
@@ -50,9 +50,8 @@ const MovieTile: FC<MovieTileProps> = ({movieData}) => {
                 <img className="movie-tile__image"  
                     src={movieData.poster_path} 
                     alt={movieData.title} 
-                    onError={addImageFallback}
-                    // width={550}
-                    // height={700}
+                    width={550}
+                    height={700}
                 />
                 <div className="movie-tile__header">
                     <h4 className="movie-tile__title">{movieData.title}</h4>

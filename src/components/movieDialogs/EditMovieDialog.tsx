@@ -1,9 +1,13 @@
 import { FC } from 'react';
-import Dialog from '../Dialog';
-import EditMovieForm from '../movieForms/EditMovieForm';
+import Dialog from '@/components/Dialog';
+import EditMovieForm from '@/components/movieForms/EditMovieForm';
+import { MovieData } from '@/types';
 
-const EditMovie: FC = ({movieData}) => {
-    console.log(movieData)
+interface EditMovieProps {
+  movieData: MovieData;
+}
+
+const EditMovie: FC<EditMovieProps> = ({movieData}) => {
     return (
         <Dialog title={"Edit Movie"} >
             <EditMovieForm movieData={movieData} />

@@ -4,6 +4,7 @@ import {MOVIE_API_URL} from '@/constants';
 import { MovieData } from '@/types';
 import Link from 'next/link';
 import '@/styles/MovieDetails.scss';
+import Image from 'next/image'
 
 const loadMovieDetails = async (movieId: string): Promise<MovieData> => {
   const responseData = await fetch([MOVIE_API_URL, movieId].join('/'),  {
@@ -29,7 +30,7 @@ const Movie: FC<MovieProps> = async ({params, searchParams}) => {
   return (
     <div className="movie-details__container">
         <div className="movie-details__poster">
-            <img className="movie-details__image" src={poster_path} alt={title} /*onError={addImageFallback}*/></img>
+            <img className="movie-details__image" src={poster_path} alt={title}  width={550} height={700} />
         </div>
         <div className="movie-details__info">
             <div className="movie-details__info-header">
