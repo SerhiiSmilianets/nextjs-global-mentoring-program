@@ -1,7 +1,7 @@
 "use client"
 
 import { FC, ChangeEvent } from 'react';
-import '../styles/SortControl.scss';
+import '@/styles/SortControl.scss';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
 const SortControl: FC = () => {
