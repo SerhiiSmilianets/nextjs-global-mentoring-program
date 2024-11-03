@@ -1,18 +1,17 @@
 import { FC } from 'react';
-import Dialog from '../Dialog';
-import EditMovieForm from '../movieForms/EditMovieForm';
-import { createPortal } from 'react-dom';
-import { useLoaderData } from "react-router-dom";
-import { MovieData } from '../../types';
+import Dialog from '@/components/Dialog';
+import EditMovieForm from '@/components/movieForms/EditMovieForm';
+import { MovieData } from '@/types';
 
-const EditMovie: FC = () => {
-    const loadedData = useLoaderData() as MovieData;
+interface EditMovieProps {
+  movieData: MovieData;
+}
+
+const EditMovie: FC<EditMovieProps> = ({movieData}) => {
     return (
-        createPortal(
-            <Dialog title={"Edit Movie"} >
-                <EditMovieForm movieData={loadedData} />
-            </Dialog>,
-        document.body)
+        <Dialog title={"Edit Movie"} >
+            <EditMovieForm movieData={movieData} />
+        </Dialog>
     )
 }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { FC } from 'react';
-import '../styles/GenreList.scss';
+import '@/styles/GenreList.scss';
 import { useSearchParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 
